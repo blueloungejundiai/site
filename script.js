@@ -85,30 +85,56 @@ document.addEventListener("DOMContentLoaded", () => {
     })
   })
 
-  // Active section highlighting
+  // Active section highlighting - VERSÃO CORRIGIDA FINAL
   function updateActiveSection() {
     const sections = document.querySelectorAll("section[id]")
-    const scrollPosition = window.scrollY + 100
+    const scrollPosition = window.scrollY + 150 // Ajustado offset para melhor detecção
+
+    let currentSection = null
 
     sections.forEach((section) => {
       const sectionTop = section.offsetTop
       const sectionHeight = section.offsetHeight
       const sectionId = section.getAttribute("id")
-      const navLink = document.querySelector(`[data-section="${sectionId}"]`)
 
+      // Verificar se estamos dentro desta seção
       if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-        // Remove active class from all links
-        navLinks.forEach((link) => link.classList.remove("active"))
-        // Add active class to current section link
-        if (navLink) {
-          navLink.classList.add("active")
-        }
+        currentSection = sectionId
       }
     })
+
+    // Remove active class from all nav links
+    const allNavLinks = document.querySelectorAll(".nav-link, .dropdown-toggle")
+    allNavLinks.forEach((link) => link.classList.remove("active"))
+
+    // Add active class to current section link
+    if (currentSection) {
+      // Buscar por data-section que corresponde ao ID da seção atual
+      const activeNavLink = document.querySelector(`[data-section="${currentSection}"]`)
+
+      if (activeNavLink) {
+        activeNavLink.classList.add("active")
+
+        // Se for um dropdown toggle, também ativar o dropdown pai
+        const parentDropdown = activeNavLink.closest(".dropdown")
+        if (parentDropdown) {
+          parentDropdown.classList.add("active")
+        }
+      }
+    }
   }
 
-  // Scroll event listener for active section
-  window.addEventListener("scroll", updateActiveSection)
+  // Scroll event listener for active section com throttling
+  let scrollTimeout
+  window.addEventListener("scroll", () => {
+    if (scrollTimeout) {
+      clearTimeout(scrollTimeout)
+    }
+    scrollTimeout = setTimeout(updateActiveSection, 10)
+  })
+
+  // Chamar uma vez no carregamento da página
+  updateActiveSection()
 
   // Smooth scrolling for navigation links
   navLinks.forEach((link) => {
@@ -485,6 +511,3 @@ function createNeonParticles() {
 
 // Initialize enhanced particle system
 createNeonParticles()
-// URL do Google Apps Script - ATUALIZADA
-const SCRIPT_URL =
-  "https://script.google.com/macros/s/AKfycbzo8i21a_KsWcYlN06rlMWvHseDsFhgqiwU_bVampS-kY0aO-07ti7bqE-8ROZLETPsAA/exec"
