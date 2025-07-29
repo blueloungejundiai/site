@@ -811,18 +811,16 @@ html {
 
 /* Developer Credit */
 .developer-credit {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  z-index: 1000;
-  font-size: 0.85rem;
-  color: #ffffff;
-  font-family: var(--font-main);
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 0.8rem;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
 }
 
 .developer-credit p {
   margin: 0;
   text-transform: lowercase;
+  color: #666;
 }
 
 .developer-credit a {
@@ -833,7 +831,6 @@ html {
 
 .developer-credit a:hover {
   color: var(--neon-cyan);
-  transform: scale(1.05);
 }
 
 .developer-credit .red-dot {
@@ -841,8 +838,20 @@ html {
   font-weight: bold;
 }
 
+.developer-credit .red-heart {
+  color: #ff0000;
+}
+
 .developer-credit strong {
-  font-weight: 700;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+/* Remove mobile specific positioning since it's now in footer */
+@media (max-width: 768px) {
+  .developer-credit {
+    font-size: 0.75rem;
+  }
 }
 
 /* Responsive Design */
