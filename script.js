@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
     navToggle.setAttribute("aria-label", isExpanded ? "Fechar menu" : "Abrir menu")
   })
 
-  // Mobile dropdown functionality
+  // Mobile dropdown functionality - CORRIGIDO
   const dropdowns = document.querySelectorAll(".dropdown")
   dropdowns.forEach((dropdown) => {
     const toggle = dropdown.querySelector(".dropdown-toggle")
@@ -26,11 +26,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (toggle && menu) {
       toggle.addEventListener("click", (e) => {
-        // Only prevent default on mobile
+        // Sempre prevenir o comportamento padrão no mobile
         if (window.innerWidth <= 768) {
           e.preventDefault()
+          e.stopPropagation()
 
-          // Close other dropdowns
+          // Verificar se já está ativo
+          const isCurrentlyActive = dropdown.classList.contains("active")
+
+          // Fechar todos os outros dropdowns primeiro
           dropdowns.forEach((otherDropdown) => {
             if (otherDropdown !== dropdown) {
               const otherMenu = otherDropdown.querySelector(".dropdown-menu")
@@ -43,11 +47,18 @@ document.addEventListener("DOMContentLoaded", () => {
             }
           })
 
-          // Toggle current dropdown
-          const isActive = menu.classList.contains("active")
-          menu.classList.toggle("active")
-          dropdown.classList.toggle("active")
-          toggle.setAttribute("aria-expanded", !isActive)
+          // Toggle o dropdown atual
+          if (isCurrentlyActive) {
+            // Fechar se já estiver aberto
+            menu.classList.remove("active")
+            dropdown.classList.remove("active")
+            toggle.setAttribute("aria-expanded", "false")
+          } else {
+            // Abrir se estiver fechado
+            menu.classList.add("active")
+            dropdown.classList.add("active")
+            toggle.setAttribute("aria-expanded", "true")
+          }
         }
       })
     }
