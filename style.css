@@ -861,62 +861,100 @@ html {
 
 /* Mobile: mover para o footer */
 @media (max-width: 768px) {
-  .developer-credit {
-    position: static;
-    text-align: center;
-    margin-top: 1rem;
-    font-size: 0.75rem;
-    bottom: auto;
-    right: auto;
-  }
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
   .nav-menu {
     position: fixed;
     left: -100%;
     top: 70px;
     flex-direction: column;
-    background: rgba(0, 0, 0, 0.95);
+    background: rgba(0, 0, 0, 0.98);
     width: 100%;
     text-align: left;
     transition: 0.3s;
-    padding: 2rem 0;
-    backdrop-filter: blur(10px);
+    padding: 1rem 0;
+    backdrop-filter: blur(15px);
     border-right: 1px solid rgba(0, 255, 255, 0.2);
+    max-height: calc(100vh - 70px);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
   .nav-menu.active {
     left: 0;
   }
 
-  /* Estilização específica para itens primários no mobile */
+  /* TODOS OS BOTÕES MOBILE COM MESMO ESTILO E TAMANHO */
   .nav-link-primary {
     color: var(--neon-cyan) !important;
     font-weight: 700;
     font-size: 1.1rem;
     padding: 1rem 2rem;
-    border-left: 3px solid var(--neon-cyan);
-    margin-bottom: 0.5rem;
+    margin: 0.5rem 1rem;
     text-transform: uppercase;
     letter-spacing: 1px;
+    position: relative;
+    border-radius: 8px;
+    display: block;
+    width: calc(100% - 2rem);
+    min-height: 60px;
+    box-sizing: border-box; /* Adicionado para garantir tamanho consistente */
+
+    /* BORDAS NEON COM FADE */
+    border: 2px solid transparent;
+    background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)) padding-box,
+      linear-gradient(45deg, var(--neon-cyan), var(--neon-purple)) border-box;
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.3), inset 0 0 10px rgba(0, 255, 255, 0.1);
+    animation: mobile-nav-glow 2s ease-in-out infinite alternate;
   }
 
   .nav-link-primary:hover {
-    background: rgba(0, 255, 255, 0.1);
-    transform: translateX(10px);
+    background: linear-gradient(rgba(0, 255, 255, 0.1), rgba(138, 43, 226, 0.1)) padding-box,
+      linear-gradient(45deg, var(--neon-cyan), var(--neon-purple)) border-box;
+    transform: translateX(5px) scale(1.02);
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.5), inset 0 0 15px rgba(0, 255, 255, 0.2);
   }
 
-  /* Separadores visuais entre seções */
-  .nav-link-primary:not(:last-child)::after {
-    content: "";
-    display: block;
+  /* DROPDOWN TOGGLE - MESMO ESTILO DOS OUTROS BOTÕES */
+  .dropdown-toggle.nav-link-primary {
+    color: var(--neon-cyan) !important;
+    font-weight: 700;
+    font-size: 1.1rem;
+    padding: 1rem 2rem;
+    margin: 0.5rem 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     width: calc(100% - 2rem);
-    height: 1px;
-    background: linear-gradient(90deg, var(--neon-purple), transparent);
-    margin: 1rem auto;
-    opacity: 0.5;
+    min-height: 60px;
+    box-sizing: border-box; /* Adicionado para garantir tamanho consistente */
+
+    /* MESMA BORDA NEON */
+    border: 2px solid transparent;
+    background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)) padding-box,
+      linear-gradient(45deg, var(--neon-cyan), var(--neon-purple)) border-box;
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.3), inset 0 0 10px rgba(0, 255, 255, 0.1);
+    animation: mobile-nav-glow 2s ease-in-out infinite alternate;
+  }
+
+  .dropdown-toggle.nav-link-primary:hover {
+    background: linear-gradient(rgba(0, 255, 255, 0.1), rgba(138, 43, 226, 0.1)) padding-box,
+      linear-gradient(45deg, var(--neon-cyan), var(--neon-purple)) border-box;
+    transform: translateX(5px) scale(1.02);
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.5), inset 0 0 15px rgba(0, 255, 255, 0.2);
+  }
+
+  /* Animação de fade para as bordas neon */
+  @keyframes mobile-nav-glow {
+    0% {
+      box-shadow: 0 0 5px rgba(0, 255, 255, 0.2), inset 0 0 5px rgba(0, 255, 255, 0.05);
+    }
+    100% {
+      box-shadow: 0 0 15px rgba(0, 255, 255, 0.4), 0 0 25px rgba(138, 43, 226, 0.2), inset 0 0 10px
+        rgba(0, 255, 255, 0.1);
+    }
   }
 
   .nav-toggle {
@@ -933,6 +971,67 @@ html {
 
   .nav-toggle.active .bar:nth-child(3) {
     transform: translateY(-8px) rotate(-45deg);
+  }
+
+  /* Dropdown mobile melhorado */
+  .dropdown-menu {
+    position: static;
+    display: none;
+    background: rgba(138, 43, 226, 0.1);
+    border: 1px solid rgba(138, 43, 226, 0.3);
+    border-radius: 6px;
+    box-shadow: inset 0 0 10px rgba(138, 43, 226, 0.2);
+    padding: 0;
+    margin: 0.5rem 1rem 1rem 1rem;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.4s ease;
+    width: calc(100% - 2rem);
+  }
+
+  .dropdown-menu.active {
+    display: block;
+    max-height: 350px;
+    opacity: 1;
+    padding: 0.5rem 0;
+  }
+
+  .dropdown-item {
+    padding: 0.75rem 1.5rem;
+    border-left: none;
+    color: var(--text-gray);
+    font-size: 0.9rem;
+    position: relative;
+    display: block;
+    transition: all 0.3s ease;
+    border-radius: 4px;
+    margin: 0.2rem 0.5rem;
+  }
+
+  .dropdown-item:hover {
+    background-color: rgba(138, 43, 226, 0.2);
+    color: var(--neon-purple);
+    transform: translateX(5px);
+    box-shadow: 0 0 8px rgba(138, 43, 226, 0.3);
+  }
+
+  .dropdown-item:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    bottom: -0.1rem;
+    left: 1rem;
+    right: 1rem;
+    height: 1px;
+    background: rgba(138, 43, 226, 0.2);
+  }
+
+  .dropdown-toggle .dropdown-arrow {
+    transition: transform 0.3s ease;
+  }
+
+  .dropdown.active .dropdown-arrow {
+    transform: rotate(180deg);
+    color: var(--neon-purple);
   }
 
   .reservas-grid {
@@ -967,65 +1066,6 @@ html {
 
   .hero-logo {
     max-width: 300px;
-  }
-
-  /* Dropdown mobile melhorado - CORRIGIDO */
-  .dropdown-menu {
-    position: static;
-    display: none; /* Sempre fechado por padrão */
-    background: rgba(138, 43, 226, 0.1);
-    border: none;
-    box-shadow: none;
-    padding: 0;
-    margin: 0.5rem 0 1rem 2rem;
-    border-left: 2px solid var(--neon-purple);
-    max-height: 0;
-    overflow: hidden;
-    transition: all 0.3s ease;
-    opacity: 0;
-  }
-
-  .dropdown-menu.active {
-    display: block;
-    max-height: 300px;
-    opacity: 1;
-    padding: 0.5rem 0;
-  }
-
-  .dropdown-item {
-    padding: 0.75rem 1rem;
-    border-left: none;
-    color: var(--text-gray);
-    font-size: 0.9rem;
-    position: relative;
-    display: block;
-    transition: all 0.3s ease;
-  }
-
-  .dropdown-item:hover {
-    background-color: rgba(138, 43, 226, 0.2);
-    color: var(--neon-purple);
-    transform: translateX(5px);
-  }
-
-  /* Separador visual entre dropdown items */
-  .dropdown-item:not(:last-child)::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 1rem;
-    right: 1rem;
-    height: 1px;
-    background: rgba(138, 43, 226, 0.3);
-  }
-
-  /* Indicador visual para dropdowns no mobile */
-  .dropdown-toggle .dropdown-arrow {
-    transition: transform 0.3s ease;
-  }
-
-  .dropdown.active .dropdown-arrow {
-    transform: rotate(180deg);
   }
 
   .hero-logo-container::before {
@@ -1068,5 +1108,22 @@ html {
   .hero-logo-container::after {
     width: 192px;
     height: 192px;
+  }
+
+  .nav-link-primary {
+    font-size: 1rem;
+    padding: 0.8rem 1.5rem;
+    margin: 0.3rem 0.5rem;
+  }
+
+  .dropdown-toggle.nav-link-primary {
+    font-size: 1rem;
+    padding: 0.8rem 1.5rem;
+    margin: 0.3rem 0.5rem;
+  }
+
+  .dropdown-item {
+    padding: 0.6rem 1rem;
+    font-size: 0.85rem;
   }
 }
