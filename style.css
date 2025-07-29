@@ -5,6 +5,17 @@
   box-sizing: border-box;
 }
 
+/* Prevenir overflow em todos os elementos */
+*:not(html):not(body) {
+  max-width: 100%;
+}
+
+html,
+body {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
 :root {
   --bg-dark: #000000;
   --bg-section-alt: #0a0a0a;
@@ -674,20 +685,20 @@ html {
 }
 
 .neon-glow-cyan {
-  box-shadow: 0 0 5px var(--neon-cyan), 0 0 10px var(--neon-cyan);
+  box-shadow: 0 0 3px var(--neon-cyan), 0 0 6px var(--neon-cyan);
 }
 
 .neon-glow-purple {
-  box-shadow: 0 0 5px var(--neon-purple), 0 0 10px var(--neon-purple);
+  box-shadow: 0 0 3px var(--neon-purple), 0 0 6px var(--neon-purple);
 }
 
-/* Animações de Brilho Neon - Sem piscar o texto */
+/* Animações de Brilho Neon - Sem piscar o texto e sem overflow */
 @keyframes neon-glow-cyan {
   0% {
     text-shadow: none;
   }
   100% {
-    text-shadow: 0 0 5.6px var(--neon-cyan), 0 0 11.2px var(--neon-cyan), 0 0 16.8px var(--neon-cyan), 0 0 22.4px
+    text-shadow: 0 0 4px var(--neon-cyan), 0 0 8px var(--neon-cyan), 0 0 12px var(--neon-cyan), 0 0 16px
       var(--neon-cyan);
   }
 }
@@ -697,7 +708,7 @@ html {
     text-shadow: none;
   }
   100% {
-    text-shadow: 0 0 5.6px var(--neon-purple), 0 0 11.2px var(--neon-purple), 0 0 16.8px var(--neon-purple), 0 0 22.4px
+    text-shadow: 0 0 4px var(--neon-purple), 0 0 8px var(--neon-purple), 0 0 12px var(--neon-purple), 0 0 16px
       var(--neon-purple);
   }
 }
