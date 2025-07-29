@@ -252,21 +252,15 @@ document.addEventListener("DOMContentLoaded", () => {
     reservationForm.addEventListener("submit", async function (e) {
       e.preventDefault()
 
-      // Capturar dados de forma mais robusta
-      const nomeEl = document.getElementById("nome")
-      const emailEl = document.getElementById("email")
-      const telefoneEl = document.getElementById("telefone")
-      const dataEl = document.getElementById("data")
-      const quantidadeEl = document.getElementById("quantidade")
-      const mensagemEl = document.getElementById("mensagem")
-
+      // Capturar dados do FormData diretamente
+      const formData = new FormData(this)
       const data = {
-        nome: nomeEl ? nomeEl.value.trim() : "",
-        email: emailEl ? emailEl.value.trim() : "",
-        telefone: telefoneEl ? telefoneEl.value.trim() : "",
-        data: dataEl ? dataEl.value.trim() : "",
-        quantidade: quantidadeEl ? quantidadeEl.value.trim() : "",
-        mensagem: mensagemEl ? mensagemEl.value.trim() : "",
+        nome: formData.get("nome")?.trim() || "",
+        email: formData.get("email")?.trim() || "",
+        telefone: formData.get("telefone")?.trim() || "",
+        data: formData.get("data")?.trim() || "",
+        quantidade: formData.get("quantidade")?.trim() || "",
+        mensagem: formData.get("mensagem")?.trim() || "",
       }
 
       console.log("📝 Dados capturados do formulário:", data)
