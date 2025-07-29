@@ -247,20 +247,26 @@ document.addEventListener("DOMContentLoaded", () => {
     })
   }
 
-  // Form submission - VERSÃO ATUALIZADA COM GOOGLE APPS SCRIPT
+  // Form submission - VERSÃO CORRIGIDA BASEADA NO CÓDIGO FUNCIONAL
   if (reservationForm) {
     reservationForm.addEventListener("submit", async function (e) {
       e.preventDefault()
 
-      // Capturar dados do formulário
-      const formData = new FormData(this)
+      // Capturar dados de forma mais robusta
+      const nomeEl = document.getElementById("nome")
+      const emailEl = document.getElementById("email")
+      const telefoneEl = document.getElementById("telefone")
+      const dataEl = document.getElementById("data")
+      const quantidadeEl = document.getElementById("quantidade")
+      const mensagemEl = document.getElementById("mensagem")
+
       const data = {
-        nome: formData.get("nome")?.trim() || "",
-        email: formData.get("email")?.trim() || "",
-        telefone: formData.get("telefone")?.trim() || "",
-        data: formData.get("data")?.trim() || "",
-        quantidade: formData.get("quantidade")?.trim() || "",
-        mensagem: formData.get("mensagem")?.trim() || "",
+        nome: nomeEl ? nomeEl.value.trim() : "",
+        email: emailEl ? emailEl.value.trim() : "",
+        telefone: telefoneEl ? telefoneEl.value.trim() : "",
+        data: dataEl ? dataEl.value.trim() : "",
+        quantidade: quantidadeEl ? quantidadeEl.value.trim() : "",
+        mensagem: mensagemEl ? mensagemEl.value.trim() : "",
       }
 
       console.log("📝 Dados capturados do formulário:", data)
@@ -311,7 +317,7 @@ document.addEventListener("DOMContentLoaded", () => {
         submitBtn.disabled = true
         submitBtn.style.opacity = "0.7"
 
-        // URL do Google Apps Script (VOCÊ DEVE SUBSTITUIR PELA SUA URL)
+        // URL do Google Apps Script - ATUALIZADA
         const SCRIPT_URL =
           "https://script.google.com/macros/s/AKfycbzvnM7WO-i4tej48-p8LqkBfDSso16v4VjCj9plEE-hiUFi-FPqWlZsHkr98lHiApW1cg/exec"
 
