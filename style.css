@@ -907,10 +907,10 @@ html {
     max-width: 300px;
   }
 
-  /* Dropdown mobile melhorado - FECHADO por padrão */
+  /* Dropdown mobile melhorado - CORRIGIDO */
   .dropdown-menu {
     position: static;
-    display: none; /* MUDANÇA: agora começa fechado */
+    display: none; /* Sempre fechado por padrão */
     background: rgba(138, 43, 226, 0.1);
     border: none;
     box-shadow: none;
@@ -920,11 +920,14 @@ html {
     max-height: 0;
     overflow: hidden;
     transition: all 0.3s ease;
+    opacity: 0;
   }
 
   .dropdown-menu.active {
     display: block;
     max-height: 300px;
+    opacity: 1;
+    padding: 0.5rem 0;
   }
 
   .dropdown-item {
@@ -933,6 +936,8 @@ html {
     color: var(--text-gray);
     font-size: 0.9rem;
     position: relative;
+    display: block;
+    transition: all 0.3s ease;
   }
 
   .dropdown-item:hover {
@@ -950,6 +955,15 @@ html {
     right: 1rem;
     height: 1px;
     background: rgba(138, 43, 226, 0.3);
+  }
+
+  /* Indicador visual para dropdowns no mobile */
+  .dropdown-toggle .dropdown-arrow {
+    transition: transform 0.3s ease;
+  }
+
+  .dropdown.active .dropdown-arrow {
+    transform: rotate(180deg);
   }
 
   .hero-logo-container::before {
