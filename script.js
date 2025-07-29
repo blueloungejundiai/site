@@ -247,58 +247,34 @@ document.addEventListener("DOMContentLoaded", () => {
     })
   }
 
-  // Form submission - VERSÃO CORRIGIDA BASEADA NO CÓDIGO FUNCIONAL
+  // Form submission - VERSÃO CORRIGIDA FINAL
   if (reservationForm) {
     reservationForm.addEventListener("submit", async function (e) {
       e.preventDefault()
 
-      // Capturar dados do FormData diretamente
+      // Capturar dados diretamente dos campos do formulário
       const formData = new FormData(this)
+
+      // Debug: mostrar todos os dados do FormData
+      console.log("=== DEBUG FORM DATA ===")
+      for (const [key, value] of formData.entries()) {
+        console.log(key, value)
+      }
+
       const data = {
-        nome: formData.get("nome")?.trim() || "",
-        email: formData.get("email")?.trim() || "",
-        telefone: formData.get("telefone")?.trim() || "",
-        data: formData.get("data")?.trim() || "",
-        quantidade: formData.get("quantidade")?.trim() || "",
-        mensagem: formData.get("mensagem")?.trim() || "",
+        nome: formData.get("nome") || "",
+        email: formData.get("email") || "",
+        telefone: formData.get("telefone") || "",
+        data: formData.get("data") || "",
+        quantidade: formData.get("quantidade") || "",
+        mensagem: formData.get("mensagem") || "",
       }
 
-      console.log("📝 Dados capturados do formulário:", data)
+      console.log("📝 Dados processados:", data)
 
-      // Validação dos campos obrigatórios
-      const camposObrigatorios = ["nome", "email", "telefone", "data", "quantidade"]
-      const camposFaltando = []
-
-      camposObrigatorios.forEach((campo) => {
-        if (!data[campo] || data[campo] === "") {
-          camposFaltando.push(campo)
-        }
-      })
-
-      if (camposFaltando.length > 0) {
-        const nomesCampos = {
-          nome: "Nome",
-          email: "E-mail",
-          telefone: "Telefone",
-          data: "Data",
-          quantidade: "Quantidade de Pessoas",
-        }
-        const faltando = camposFaltando.map((campo) => nomesCampos[campo]).join(", ")
-        alert(`Por favor, preencha os campos obrigatórios: ${faltando}`)
-        return
-      }
-
-      // Validação de email
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-      if (!emailRegex.test(data.email)) {
-        alert("Por favor, insira um e-mail válido.")
-        return
-      }
-
-      // Validação de telefone
-      const phoneClean = data.telefone.replace(/\D/g, "")
-      if (phoneClean.length < 10 || phoneClean.length > 11) {
-        alert("Por favor, insira um telefone válido com DDD.")
+      // Validação básica
+      if (!data.nome || !data.email || !data.telefone || !data.data || !data.quantidade) {
+        alert("Por favor, preencha todos os campos obrigatórios.")
         return
       }
 
@@ -311,39 +287,38 @@ document.addEventListener("DOMContentLoaded", () => {
         submitBtn.disabled = true
         submitBtn.style.opacity = "0.7"
 
-        // URL do Google Apps Script - ATUALIZADA
+        // URL CORRETA do Google Apps Script
         const SCRIPT_URL =
-          "https://script.google.com/macros/s/AKfycbzvnM7WO-i4tej48-p8LqkBfDSso16v4VjCj9plEE-hiUFi-FPqWlZsHkr98lHiApW1cg/exec"
+          "https://script.google.com/macros/s/AKfycbzo8i21a_KsWcYlN06rlMWvHseDsFhgqiwU_bVampS-kY0aO-07ti7bqE-8ROZLETPsAA/exec"
 
-        console.log("🚀 Enviando dados para Google Apps Script:", data)
+        console.log("🚀 Enviando para:", SCRIPT_URL)
+        console.log("📦 Dados:", data)
 
         // Enviar para Google Apps Script
         const response = await fetch(SCRIPT_URL, {
           method: "POST",
-          mode: "no-cors", // Importante para Google Apps Script
+          mode: "no-cors",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(data),
         })
 
-        // Como usamos no-cors, sempre assumimos sucesso se não houver erro
-        console.log("✅ Reserva enviada com sucesso!")
+        console.log("✅ Enviado com sucesso!")
 
         // Resetar formulário
         this.reset()
 
         // Mostrar mensagem de sucesso
-        alert("🍸 Reserva enviada com sucesso! Entraremos em contato em breve para confirmar.")
+        alert("🍸 Reserva enviada com sucesso! Entraremos em contato em breve.")
 
         // Restaurar botão
         submitBtn.textContent = originalText
         submitBtn.disabled = false
         submitBtn.style.opacity = "1"
       } catch (error) {
-        console.error("❌ Erro ao enviar reserva:", error)
-
-        alert("❌ Erro ao enviar reserva. Tente novamente ou entre em contato pelo WhatsApp: (11) 91441-1445")
+        console.error("❌ Erro:", error)
+        alert("❌ Erro ao enviar. Tente novamente ou ligue: (11) 91441-1445")
 
         // Restaurar botão
         const submitBtn = this.querySelector(".form-submit")
@@ -512,4 +487,4 @@ function createNeonParticles() {
 createNeonParticles()
 // URL do Google Apps Script - ATUALIZADA
 const SCRIPT_URL =
-  "https://script.google.com/macros/s/AKfycbzvnM7WO-i4tej48-p8LqkBfDSso16v4VjCj9plEE-hiUFi-FPqWlZsHkr98lHiApW1cg/exec"
+  "https://script.google.com/macros/s/AKfycbzo8i21a_KsWcYlN06rlMWvHseDsFhgqiwU_bVampS-kY0aO-07ti7bqE-8ROZLETPsAA/exec"
