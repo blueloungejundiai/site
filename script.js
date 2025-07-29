@@ -313,7 +313,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // URL do Google Apps Script (VOCÊ DEVE SUBSTITUIR PELA SUA URL)
         const SCRIPT_URL =
-          "https://script.google.com/macros/s/AKfycby-tBIS8RgQToHdPKGw7C1CqDSASkvKKnCvLFiLAWvjd-d79H2QK5DY-mh1cxrQ-ZDp/exec"
+          "https://script.google.com/macros/s/AKfycbzvnM7WO-i4tej48-p8LqkBfDSso16v4VjCj9plEE-hiUFi-FPqWlZsHkr98lHiApW1cg/exec"
 
         console.log("🚀 Enviando dados para Google Apps Script:", data)
 
@@ -510,3 +510,6 @@ function createNeonParticles() {
 
 // Initialize enhanced particle system
 createNeonParticles()
+// URL do Google Apps Script - ATUALIZADA
+const SCRIPT_URL =
+  "https://script.google.com/macros/s/AKfycbzvnM7WO-i4tej48-p8LqkBfDSso16v4VjCj9plEE-hiUFi-FPqWlZsHkr98lHiApW1cg/exec"
