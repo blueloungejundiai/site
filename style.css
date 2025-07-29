@@ -809,6 +809,42 @@ html {
   }
 }
 
+/* Developer Credit */
+.developer-credit {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+  font-size: 0.85rem;
+  color: #ffffff;
+  font-family: var(--font-main);
+}
+
+.developer-credit p {
+  margin: 0;
+  text-transform: lowercase;
+}
+
+.developer-credit a {
+  color: #ffffff;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.developer-credit a:hover {
+  color: var(--neon-cyan);
+  transform: scale(1.05);
+}
+
+.developer-credit .red-dot {
+  color: #ff0000;
+  font-weight: bold;
+}
+
+.developer-credit strong {
+  font-weight: 700;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .nav-menu {
@@ -974,6 +1010,15 @@ html {
   .hero-logo-container::after {
     width: 240px;
     height: 240px;
+  }
+
+  /* Developer credit mobile */
+  .developer-credit {
+    position: static;
+    text-align: center;
+    padding: 1rem 0;
+    bottom: auto;
+    right: auto;
   }
 }
 
